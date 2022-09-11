@@ -1,5 +1,5 @@
 /cmake-build-debug/
-/hello/CMakeLists.txt
-/in-out/CMakeLists.txt
-/modules/CMakeLists.txt
+/task1/hello/CMakeLists.txt
+/task1/in-out/CMakeLists.txt
+/task1/modules/CMakeLists.txt
 /CMakeLists.txt
