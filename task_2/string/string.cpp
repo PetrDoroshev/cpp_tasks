@@ -15,7 +15,8 @@ int main(){
     char t[32];
     string_copy(t, str);
     std::cout << t << std::endl;
-
+    
+    std::cout << std::endl;
     std::cout << len(t) << std::endl;
     std::cout << std::endl;
 
@@ -51,7 +52,7 @@ int compare(const char* s, const char* t){
         result = -1;
     }
  
-    for (int i = 0; s[i] != '\0' & t[i] != '0'; i++){
+    for (int i = 0; s[i] & t[i]; i++){
 
         if (s[i] < t[i]){
             result = 1;
