@@ -22,15 +22,17 @@ int main(int argc, char* argv[]){
         }
         else if (argv[2][0] == '/'){
 
-            if (b == 0){
+            if (b == 0) {
                 throw std::logic_error("division by zero");
             }
             std::cout << a / b << std::endl; 
         }
         else if (argv[2][0] == '%'){
             std::cout << a * b << std::endl;
+        }    
+        else {
+            std::cout << "unknown operation" << std::endl;
         }
-            
     }
     catch (std::invalid_argument) {
 
