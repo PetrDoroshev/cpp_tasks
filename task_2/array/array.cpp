@@ -45,7 +45,5 @@ void rotate(int a[], int n, bool clockwise){
             p--;
         }
         *(p + 1) = x;
-        
-
     }
 }
