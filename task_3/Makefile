@@ -1,2 +1,2 @@
 all:
-	g++ -std=c++17 -Wall 
+	g++ -std=c++17 -Wall main.cpp 
