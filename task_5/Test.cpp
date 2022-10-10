@@ -17,7 +17,14 @@ Test::Test(const Test& t){
     std::cout << "Copying object of Test, " << "n_count = " << n_count << std::endl;
 }
 
-Child::Child(){
+Test::Test(int a){
+    n_count += 1;
+    std::cout << "Copying object of Test, " << "n_count = " << n_count << std::endl;
+    this->a = a;
+}
+
+Child::Child():Test(5)
+{
     n_count += 1;
     std::cout << "Constructing object of Child, " <<  "n_count = " << n_count << std::endl; 
 }
