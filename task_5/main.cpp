@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Test.h"
+#include "Aggrigate.h"
+#include "AggrigateT.h"
 
 
 void foo(Test t){
@@ -10,10 +12,15 @@ void foo(Test t){
 
 int main(){
 
-    Test test;
+    //AggrigateT<Test> at;
+
+    AggrigateT<Child> at;
+
+
+    //Test test;
     //foo(test);
 
-    Aggrigate a;
+    //Aggrigate a;
 
     //Child c;
 
