@@ -3,7 +3,10 @@
 
 int main(){
 
-    List<int> list = {1, 2, 3};
-    list.pop_back();
+    List<char> list = {};
+
+    for ( int i = 0; i < 5; i ++)
+        list.push_back ( char ('a' + i ) ) ;
+
     return 0;
 }

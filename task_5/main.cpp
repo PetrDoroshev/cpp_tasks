@@ -14,14 +14,14 @@ int main(){
 
     //AggrigateT<Test> at;
 
-    //AggrigateT<Child> at;
+    AggrigateT<Child> at;
 
 
     //Test test;
     //foo(test);
 
-    Aggrigate a;
-    std::cout << (a.m_objTest).a << std::endl;
+    //Aggrigate a; 
+    //std::cout << (a.m_objTest).a << std::endl;
 
     //Child c;
     //std::cout << c.a << std::endl;

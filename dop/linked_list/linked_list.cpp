@@ -127,12 +127,13 @@ void List<T>::pop_front(){
 template<typename T>
 void List<T>::remove_at(std::size_t index){
 
+
 }
 
 
 template<typename T>
 std::size_t List<T>::size() const{
-
+    
     return _size;
 }
 

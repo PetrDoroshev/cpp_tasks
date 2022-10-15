@@ -15,7 +15,7 @@ int main(){
     std::cout << c1.conjugate() << std::endl;
     std::cout << c1.arg() << std::endl;
 
-    Complex v[4]{ 1, 2, Complex (2,3), 5 };
+    Complex v[4] { 1, 2, Complex (2,3), 5 };
 
     for (int i = 0; i < 4; i++){
         std::cout << v[i] << ' ';
