@@ -64,7 +64,9 @@ std::vector<double> out(std::vector<double>& data){
     return out;
 }
 
-void boxInfo(std::vector<double> data, int precision){
+std::tuple<double, double, double> boxInfo(std::vector<double> data, int precision){
+
+    double _mean, _median, _stddev;
 
     std::sort(data.begin(), data.end());
 
@@ -72,9 +74,9 @@ void boxInfo(std::vector<double> data, int precision){
 
     std::cout << std::setw(10) << std::left << "min: " << std::scientific << min(data) << std::endl;
     std::cout << std::setw(10) << std::left << "lq: " << std::scientific << lq(data) << std::endl;
-    std::cout << std::setw(10) << std::left << "median: " << std::scientific << median(data) << std::endl;
-    std::cout << std::setw(10) << std::left << "mean: " << std::scientific << mean(data) << std::endl;
-    std::cout << std::setw(10) << std::left << "stddev: " << std::scientific << stddev(data) << std::endl;
+    std::cout << std::setw(10) << std::left << "median: " << std::scientific << (_median = median(data)) << std::endl;
+    std::cout << std::setw(10) << std::left << "mean: " << std::scientific << (_mean = mean(data)) << std::endl;
+    std::cout << std::setw(10) << std::left << "stddev: " << std::scientific << (_stddev = stddev(data)) << std::endl;
     std::cout << std::setw(10) << std::left << "uq: " << std::scientific << uq(data) << std::endl;
     std::cout << std::setw(10) << std::left << "max: " << std::scientific << max(data) << std::endl;
     std::cout << std::setw(10) << std::left << "max: ";
@@ -84,5 +86,6 @@ void boxInfo(std::vector<double> data, int precision){
     }
     std::cout << std::endl;
     
-    
+    return std::tuple<double, double, double> {_mean, _median, _stddev};
+
 }

@@ -1,4 +1,5 @@
 #include <vector>
+#include <tuple>
 #include <algorithm>
 #include <numeric>
 #include <iostream>
@@ -22,5 +23,5 @@ double max(std::vector<double>& data);
 
 std::vector<double> out(std::vector<double>& data);
 
-void boxInfo(std::vector<double> data, int precision);
+std::tuple<double, double, double> boxInfo(std::vector<double> data, int precision);
 
