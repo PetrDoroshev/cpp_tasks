@@ -1,12 +1,9 @@
 #include <iostream>
-#include "linked_list.cpp"
+#include "linked_list.h"
 
 int main(){
 
-    List<char> list = {};
-
-    for ( int i = 0; i < 5; i ++)
-        list.push_back ( char ('a' + i ) ) ;
-
-    return 0;
+    List<int> list = {1, 2, 3, 4, 5};
+    
+    return 0; 
 }

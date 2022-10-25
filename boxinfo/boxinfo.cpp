@@ -1,18 +1,21 @@
 #include "boxinfo.h"
 
 
-double min(std::vector<double> data){
+double min(std::vector<double>& data){
 
-    return lq(data) - 1.5 * (uq(data) - lq(data));
+    double lower_q = lq(data);
+    double upper_q = uq(data);
+
+    return lower_q - 1.5 * (upper_q - lower_q);
 }
 
-double lq(std::vector<double> data){
+double lq(std::vector<double>& data){
 
     std::vector<double> half = {data.begin(), data.begin() + data.size() / 2 - 1};
     return median(half);
 }
 
-double median(std::vector<double> data){
+double median(std::vector<double>& data){
 
     if (data.size() % 2 != 0) {
         return data[data.size() / 2];
@@ -35,23 +38,28 @@ double stddev(std::vector<double> data){
     return sqrt(std::accumulate(data.begin(), data.end(), 0.0) / (data.size() - 1));
 }
 
-double uq(std::vector<double> data){
+double uq(std::vector<double>& data){
 
     std::vector<double> half = {data.end() - data.size() / 2, data.end()};
     return median(half);
 }
 
-double max(std::vector<double> data){
-    return uq(data) + 1.5 * (uq(data) - lq(data));
+double max(std::vector<double>& data){
+
+    double lower_q = lq(data);
+    double upper_q = uq(data);
+
+    return upper_q + 1.5 * (upper_q - lower_q);
 }
 
-std::vector<double> out(std::vector<double> data){
+std::vector<double> out(std::vector<double>& data){
 
     double left = min(data);
     double right = max(data);
 
     std::vector<double> out;
-    std::copy_if(data.begin(), data.end(), std::back_inserter(out), [left, right] (double x) { return (x < left) || (x > right); });
+    std::copy_if(data.begin(), data.end(), std::back_inserter(out), 
+                [left, right] (double x) { return (x < left) || (x > right); });
 
     return out;
 }

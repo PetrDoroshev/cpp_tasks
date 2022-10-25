@@ -12,7 +12,6 @@ public:
     ListNode(ListNode* next);
     ListNode();
     ~ListNode();
-
 };
 
 template<typename T>
@@ -23,20 +22,12 @@ ListNode<T>::ListNode(T value, ListNode* next){
 }
 
 template<typename T>
-ListNode<T>::ListNode(ListNode* next){
-
-    this->next = next;
-}
+ListNode<T>::ListNode(ListNode* next) { this->next = next; }
 
 template<typename T>
-ListNode<T>::ListNode(){
-
-    this->next = nullptr;
-}
+ListNode<T>::ListNode() { this->next = nullptr; }
 
 template<typename T>
-ListNode<T>::~ListNode(){
-    
-}
+ListNode<T>::~ListNode() {}
 
 
