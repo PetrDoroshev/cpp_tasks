@@ -90,7 +90,5 @@ std::tuple<double, double, double> boxInfo(std::vector<double> data, int precisi
     }
     std::cout << std::endl;
     */
-
     return std::tuple<double, double, double> {_mean, _median, _stddev};
-
 }

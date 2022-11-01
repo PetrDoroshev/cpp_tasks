@@ -119,14 +119,14 @@ size_t BM(const string& T, const string& t)
 {   
     size_t index = std::string::npos;
 
-    vector<size_t> gs_table = suff_shift(t);
+    //vector<size_t> gs_table = suff_shift(t);
     vector<char> bc_table = bad_char(t);
 
     size_t n = T.length();
     size_t m = t.length();
     int k = 0;
 
-    for (size_t i = 0; i <= n - m && k >= 0; i += max((double)gs_table[k + 1], (double)(k - bc_table[T[i + k]]))) {
+    for (size_t i = 0; i <= n - m && k >= 0; i += k - bc_table[T[i + k]]) {
         for (k = m - 1; k >= 0 && t[k] == T[i + k]; k--);
         if (k < 0) {
             index = i;
@@ -161,14 +161,15 @@ int main(){
         indx[i] = search_naive(text, word);
         auto time_two = chrono::steady_clock::now();
 
-        times[i] = chrono::duration_cast<chrono::microseconds>(time_two - time_one).count();
+        times[i] = chrono::duration_cast<chrono::milliseconds>(time_two - time_one).count();
 
     }
 
-
+    /*
     for (size_t i = 0; i < times.size(); i++){
         cout << times[i] << '\t' << indx[i] << '\n';
     }
+    */
     auto res = boxInfo(times, 2);
     cout << std::get<0>(res) << ' ' << std::get<1>(res) << ' ' << std::get<2>(res) << std::endl;
     
@@ -182,13 +183,14 @@ int main(){
         indx[i] = KMP(text, word);
         auto time_two = chrono::steady_clock::now();
 
-        times[i] = chrono::duration_cast<chrono::microseconds>(time_two - time_one).count();
+        times[i] = chrono::duration_cast<chrono::milliseconds>(time_two - time_one).count();
 
     }
-    
+    /*
     for (size_t i = 0; i < times.size(); i++){
         cout << times[i] << '\t' << indx[i] << '\n';
     }
+    */
     res = boxInfo(times, 2);
     cout << std::get<0>(res) << ' ' << std::get<1>(res) << ' ' << std::get<2>(res) << std::endl;
 
@@ -202,13 +204,14 @@ int main(){
         indx[i] = text.find(word);
         auto time_two = chrono::steady_clock::now();
 
-        times[i] = chrono::duration_cast<chrono::microseconds>(time_two - time_one).count();
+        times[i] = chrono::duration_cast<chrono::milliseconds>(time_two - time_one).count();
 
     }
-    
+    /*
     for (size_t i = 0; i < times.size(); i++){
         cout << times[i] << '\t' << indx[i] << '\n';
     }
+    */
     res = boxInfo(times, 2);
     cout << std::get<0>(res) << ' ' << std::get<1>(res) << ' ' << std::get<2>(res) << std::endl;
 
@@ -221,13 +224,14 @@ int main(){
         indx[i] = BM(text, word);
         auto time_two = chrono::steady_clock::now();
 
-        times[i] = chrono::duration_cast<chrono::microseconds>(time_two - time_one).count();
+        times[i] = chrono::duration_cast<chrono::milliseconds>(time_two - time_one).count();
 
     }
-    
+    /*
     for (size_t i = 0; i < times.size(); i++){
         cout << times[i] << '\t' << indx[i] << '\n';
     }
+    */
     res = boxInfo(times, 2);
     cout << std::get<0>(res) << ' ' << std::get<1>(res) << ' ' << std::get<2>(res) << std::endl;
     
