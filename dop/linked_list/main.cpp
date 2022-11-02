@@ -3,7 +3,8 @@
 
 int main(){
 
-    List<int> list = {1, 2, 3, 4, 5};
-    
+    List<int> list = {1, 2, 3};
+    std::cout << list[0] << std::endl;
+
     return 0; 
 }
