@@ -8,11 +8,13 @@ class List {
 private:
 
     ListNode<T>* head;
+    ListNode<T>* tail;
+
     std::size_t _size = 0;
 
-public:
+    ListNode<T>* get_node(std::size_t index) const;
 
-    ListNode<T>* tail;
+public:
 
     List(std::initializer_list<T> l);
 
@@ -44,6 +46,17 @@ public:
 
     T back() const;
 
+};
+
+template<typename T>
+ListNode<T>* List<T>::get_node(std::size_t index) const {
+
+    ListNode<T>* p = head;
+
+    for (std::size_t i = 0; i < index; i++)
+        p = p->next;
+    
+    return p;
 };
 
 template <typename T>
@@ -88,16 +101,16 @@ void List<T>::push_front(const T& value){
     tail = new_node;
     _size++;
 }
-
+//
 template <typename T>
 void List<T>::insert(std::size_t index, const T& value){
 
-    ListNode<T>* p = head;
-
-    for (std::size_t i = 0; i < index; i++)
-        p = p->next;
-
+    ListNode<T>* p = get_node(index + 1);
     ListNode<T>* new_node = new ListNode<T>(value, p->next);
+
+    if (index == _size - 1)
+        tail = new_node;
+
     p->next = new_node;
     _size++;
 }
@@ -117,33 +130,44 @@ void List<T>::pop_back(){
 template<typename T>
 void List<T>::pop_front(){
 
-    ListNode<T>* p = head;
-
-    for (std::size_t i = 0; i < _size - 1; i++)
-        p = p->next;
-
-    ListNode<T>* tmp = tail;
+    ListNode<T>* p = get_node(_size - 1);
+    ListNode<T>* removable_node = tail;
     tail = p;
     tail->next = head;
 
-    delete tmp;
+    delete removable_node;
     _size--;
 }
 
 template<typename T>
-void List<T>::remove_at(std::size_t index){
-    
+void List<T>::remove_at(std::size_t index) {
+
+    ListNode<T>* p = get_node(index);
+    ListNode<T>* removable_node = p->next;
+
+    p->next = removable_node->next;
+
+    if (index == _size - 1)
+        tail = p;
+
+    _size--;
+    delete removable_node;
 }
+
 
 template<typename T>
-T const& List<T>::operator[](const std::size_t index) const{
-    ListNode<T>* p = head->next;
+T& List<T>::operator[] (const std::size_t index) {
 
-    for (int i = 0; i < index; i++)
-        p = p->next;
+    return (get_node(index + 1)->value).value();
 
-    return (p->value).value();
-}
+};
+
+
+template<typename T>
+T const& List<T>::operator[] (const std::size_t index) const { 
+    
+    return (this->operator[](index)); 
+};
 
 template<typename T>
 void List<T>::clear() {
@@ -161,16 +185,12 @@ void List<T>::clear() {
     head->next = head;
     _size = 0;
 }
+//
+template<typename T>
+T List<T>::front() const { return (head->next->value).value(); }
 
 template<typename T>
-T List<T>::front() const{
-    return (head->next->value).value();
-}
-
-template<typename T>
-T List<T>::back() const{
-    return (tail->value).value();
-}
+T List<T>::back() const { return (tail->value).value(); }
 
 template<typename T>
 std::size_t List<T>::size() const { return _size; }
