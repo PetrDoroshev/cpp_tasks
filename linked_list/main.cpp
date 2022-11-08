@@ -8,7 +8,6 @@ void print_lst ( const List<char> &l ) {
         std::cout << l[i] << ' ';
     }
     std::cout << std::endl;
-
 }
 
 int main(){
@@ -58,6 +57,5 @@ int main(){
     auto lambda = [& l ]( int a , int b ) { return a + b *10; };
     std::cout << std::accumulate ( l.begin (), l.end (), 0, lambda) << "\n"; // 250
     
-
     return 0; 
 }
