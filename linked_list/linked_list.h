@@ -1,6 +1,38 @@
 #include <initializer_list>
 #include <iostream>
+#include <iterator>
+#include <cstddef>
+
 #include "list_node.h"
+
+
+
+template <typename T>
+class ListIterator: public std::iterator< std::forward_iterator_tag, T>{
+
+public:
+
+    ListNode<T>* ptr;
+    ListIterator (ListNode<T>* _ptr): ptr(_ptr) {}
+
+    T& operator*() const { return (ptr->value).value(); }
+
+    //T* operator->() const { return ptr->value.value(); }
+
+    ListIterator& operator++() {
+
+        ptr = ptr->next;
+        return *this; 
+        
+    }
+    ListIterator operator++(int) { ListIterator tmp = *this; ++(*this); return tmp; }
+
+    bool operator== (const ListIterator& other) { return ptr == other.ptr; };
+    bool operator!= (const ListIterator& other) { return ptr != other.ptr; };    
+    
+};
+
+
 
 template <typename T>
 class List {
@@ -14,13 +46,16 @@ private:
 
     ListNode<T>* get_node(std::size_t index) const;
 
+
 public:
 
-    
-
     List(std::initializer_list<T> l);
-
+    List();
     ~List();
+
+
+    ListIterator<T> begin() { return ListIterator<T> (head->next); }
+    ListIterator<T> end() {return ListIterator<T> (head); }
 
     void push_back(const T& value);
 
@@ -73,6 +108,16 @@ List<T>::List(std::initializer_list<T> l){
 }
 
 template <typename T>
+List<T>::List(){
+
+    head = new ListNode<T>();
+    tail = head;
+    head->next = head;
+
+}
+
+
+template <typename T>
 List<T>::~List(){
 
     ListNode<T>* p = head;
@@ -88,7 +133,7 @@ List<T>::~List(){
 }
 
 template <typename T>
-void List<T>::push_back(const T& value){
+void List<T>::push_front(const T& value){
     
     ListNode<T>* new_node = new ListNode(value, head->next);
     head->next = new_node;
@@ -96,7 +141,7 @@ void List<T>::push_back(const T& value){
 }
 
 template <typename T>
-void List<T>::push_front(const T& value){
+void List<T>::push_back(const T& value){
 
     ListNode<T>* new_node = new ListNode<T>(value, head);
     tail->next = new_node;
@@ -110,12 +155,9 @@ void List<T>::insert(std::size_t index, const T& value){
     if (index >= _size || index < 0)
         throw std::out_of_range("Out of range");
 
-    ListNode<T>* p = get_node(index + 1);
+    ListNode<T>* p = get_node(index);
     ListNode<T>* new_node = new ListNode<T>(value, p->next);
-
-    if (index == _size - 1)
-        tail = new_node;
-
+    
     p->next = new_node;
     _size++; 
 }
@@ -181,7 +223,10 @@ T& List<T>::operator[] (const std::size_t index) {
 template<typename T>
 T const& List<T>::operator[] (const std::size_t index) const { 
     
-    return (this->operator[](index)); 
+    if (index >= _size || index < 0)
+        throw std::out_of_range("Out of range");
+
+    return (get_node(index + 1)->value).value();
 };
 
 template<typename T>
@@ -204,6 +249,9 @@ void List<T>::clear() {
 template<typename T>
 T List<T>::front() const { 
 
+    if (empty())
+        throw std::underflow_error("List is empty");
+
     return (head->next->value).value(); 
     
 }
@@ -211,6 +259,9 @@ T List<T>::front() const {
 template<typename T>
 T List<T>::back() const { 
     
+    if (empty())
+        throw std::underflow_error("List is empty");
+
     return (tail->value).value(); 
 }
 

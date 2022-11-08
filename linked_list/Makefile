@@ -1,2 +1,2 @@
 all:
-	g++ -std=c++17 -O3 -Wall main.cpp
+	g++ -std=c++17 -Wall main.cpp
