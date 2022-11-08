@@ -146,7 +146,7 @@ void List<T>::push_back(const T& value){
     tail = new_node;
     _size++;
 }
-//
+
 template <typename T>
 void List<T>::insert(std::size_t index, const T& value){
 
@@ -243,7 +243,7 @@ void List<T>::clear() {
     head->next = head;
     _size = 0;
 }
-//
+
 template<typename T>
 T List<T>::front() const { 
 
