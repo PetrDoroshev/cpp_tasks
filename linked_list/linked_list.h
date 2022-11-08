@@ -17,8 +17,6 @@ public:
 
     T& operator*() const { return (ptr->value).value(); }
 
-    //T* operator->() const { return ptr->value.value(); }
-
     ListIterator& operator++() {
 
         ptr = ptr->next;
