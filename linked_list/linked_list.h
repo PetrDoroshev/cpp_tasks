@@ -51,7 +51,6 @@ public:
     List();
     ~List();
 
-
     ListIterator<T> begin() { return ListIterator<T> (head->next); }
     ListIterator<T> end() {return ListIterator<T> (head); }
 
