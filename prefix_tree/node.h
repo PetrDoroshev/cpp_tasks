@@ -3,7 +3,7 @@
 
 struct Node{
 
-    std::unordered_map<char, std::shared_ptr<Node>> children;
+    std::unordered_map<char, std::unique_ptr<Node>> children;
     bool is_terminal;
     int value;
 
@@ -11,7 +11,7 @@ struct Node{
         is_terminal = false;
         value = 0;
     };
-    
+
     ~Node() {};
 
 };

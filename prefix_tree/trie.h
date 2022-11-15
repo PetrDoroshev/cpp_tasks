@@ -8,12 +8,12 @@ class Trie {
 
 private:
 
-    std::shared_ptr<Node> root;
+    std::unique_ptr<Node> root;
     std::size_t _size = 0;
 
 public:
 
-    Trie(): root(std::shared_ptr<Node>(new Node)) {};
+    Trie(): root(std::make_unique<Node>()) {};
     ~Trie() {};
 
     void insert(const std::string& word);
@@ -23,14 +23,14 @@ public:
 
 void Trie::insert(const std::string& word) {
 
-    std::shared_ptr<Node> node_ptr = root;  
+    Node* node_ptr = root.get();  
 
     for (auto &c: word) {
 
-        if (!node_ptr->children.count(c))
-            node_ptr->children[c] = std::shared_ptr<Node>(new Node);
+        if (node_ptr->children.count(c) == 0)
+            node_ptr->children[c] = std::make_unique<Node>();
         
-        node_ptr = node_ptr->children[c]; 
+        node_ptr = node_ptr->children[c].get(); 
     }
     node_ptr->is_terminal = true;
     node_ptr->value += 1;
@@ -42,15 +42,14 @@ void Trie::insert(const std::string& word) {
 
 int Trie::find(const std::string& word) const {
 
-    std::shared_ptr<Node> node_ptr = root;
+    Node* node_ptr = root.get();
     for (auto &c: word){
         
-        if (!node_ptr->children.count(c))
+        if (node_ptr->children.count(c) == 0)
             return 0;
 
-        node_ptr = node_ptr->children[c];
+        node_ptr = node_ptr->children[c].get();
     }
-
     return node_ptr->value;
 }
 

@@ -61,7 +61,7 @@ int main()
 
     std::string word = "wiki"; // слово которое ищем
 
-    size_t N = 10;
+    size_t N = 2;
     vector<double> times(N);
 
 
