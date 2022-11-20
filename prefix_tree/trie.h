@@ -35,7 +35,7 @@ void Trie::insert(const std::string& word) {
     node_ptr->is_terminal = true;
     node_ptr->value += 1;
     
-    if (node_ptr->value == 1)
+    if (node_ptr->value == 1)   
         _size++;
 
 }

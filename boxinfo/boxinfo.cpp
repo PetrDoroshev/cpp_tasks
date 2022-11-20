@@ -70,6 +70,10 @@ std::tuple<double, double, double> boxInfo(std::vector<double> data, int precisi
 
     std::sort(data.begin(), data.end());
 
+    _median = median(data);
+    _mean = mean(data);
+    _stddev = stddev(data);
+
     /*
     std::cout.precision(precision);
 
