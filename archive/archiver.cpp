@@ -3,7 +3,7 @@
 Archiver::Archiver(int alphabet_size) {
 
     fibs = get_fibs(alphabet_size);
-    code_words = get_codes(alphabet_size);
+
 }
 
 std::vector<int> Archiver::get_fibs(int max){
@@ -56,17 +56,7 @@ std::string Archiver::get_code(int n) {
     return code_word;
 }
 
-std::vector<std::string> Archiver::get_codes(int n){
-
-    std::vector<std::string> _code_words;
-
-    for (int i = 0; i < n; i++) {
-        _code_words.push_back(get_code(i + 1));
-    }
-    return _code_words;
-}
-
-void Archiver::compress(std::ifstream& input, std::ofstream& output) const {
+std::vector<std::pair<char, int>> Archiver::get_freq_table(std::ifstream& input){
 
     std::unordered_map<char, int> freq_table;
 
@@ -74,5 +64,37 @@ void Archiver::compress(std::ifstream& input, std::ofstream& output) const {
     while (input.get(c)) {
        ++freq_table[c];     
     }
-}
+    
+    auto comp = [](std::pair<char, int>& a, std::pair<char, int>& b) { return a.second > b.second; };
 
+    std::vector<std::pair<char, int>> items(freq_table.begin(), freq_table.end());
+    std::sort(items.begin(), items.end(), comp);
+
+    return items;
+
+
+}   
+
+void Archiver::compress(std::ifstream& input, std::ofstream& output) {
+
+    auto freq_table = get_freq_table(input);
+
+    std::unordered_map<char, std::string> encode_map;
+    std::vector<char> decode_vector;
+
+    for (std::size_t i = 0; i < freq_table.size(); i++){
+        encode_map[freq_table[i].first] = get_code(i + 1);
+        decode_vector.push_back(freq_table[i].first);
+    }
+    freq_table.clear();
+
+    for(auto &c: decode_vector){
+        output.put(c);
+    }
+    output.put('\0');
+
+    input.clear();
+    input.seekg(0, std::ios::beg);
+  
+
+}
