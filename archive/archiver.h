@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <algorithm>
 
+#define ZERO_CODE 48
 
 struct nearest
 {

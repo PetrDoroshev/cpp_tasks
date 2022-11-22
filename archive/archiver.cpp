@@ -95,6 +95,29 @@ void Archiver::compress(std::ifstream& input, std::ofstream& output) {
 
     input.clear();
     input.seekg(0, std::ios::beg);
-  
+
+    int bit;
+    char buffer = 0;
+    int bit_count = 0;
+
+    char c;
+    while (input.get(c)){
+        for (auto &b: encode_map[c]){
+            bit = b - ZERO_CODE;
+            buffer = buffer << 1 | bit;
+            bit_count++;
+
+            if (bit_count == 8){
+                output.put(buffer);
+                buffer = 0;
+                bit_count = 0;
+            }
+        }
+    }
+    while (bit_count != 8){
+        buffer = buffer << 1;
+        bit_count++;
+    }  
+    output.put(buffer);
 
 }
