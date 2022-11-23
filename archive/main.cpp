@@ -34,7 +34,7 @@ int get_file_size(std::ofstream& file){
 
 int main(int argc, char* argv[]) {
 
-    Archiver a(128);
+    Archiver archiver(128);
     std::ifstream input;
     std::ofstream output;
 
@@ -48,7 +48,8 @@ int main(int argc, char* argv[]) {
         std::ofstream output(argv[3], std::ios::binary);
 
         if (input.is_open() && output.is_open()){
-            a.compress(input, output);
+
+            archiver.compress(input, output);
 
             int input_size = get_file_size(input);
             int output_size = get_file_size(output);
@@ -65,7 +66,21 @@ int main(int argc, char* argv[]) {
             std::cout << "Unable to open this file!" << std::endl;
         }
     }
-    else{
+    else if (std::string{argv[1]} == "-d"){
+
+        std::ifstream input(argv[2], std::ios::binary);
+        std::ofstream output(argv[3]);
+
+        if (input.is_open() && output.is_open()){
+            archiver.decompress(input, output);
+            std::cout << "Decompression done" << std::endl;
+
+            input.close();
+            output.close();
+        }
+
+    }
+    else {
         std::cout << "Unknown flag! Alowable flags: -h, -c, -d" << std::endl;
     }
 

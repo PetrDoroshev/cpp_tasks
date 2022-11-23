@@ -4,6 +4,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <algorithm>
+#include <bitset>
 
 #define ZERO_CODE 48
 

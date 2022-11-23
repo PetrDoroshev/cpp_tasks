@@ -121,3 +121,38 @@ void Archiver::compress(std::ifstream& input, std::ofstream& output) {
     output.put(buffer);
 
 }
+
+
+void Archiver::decompress(std::ifstream& input, std::ofstream& output){
+    
+    std::vector<char> decode_vector;
+
+    char c;
+
+    input.get(c);
+    while (c != '\0'){
+        decode_vector.push_back(c);
+        input.get(c);
+    }
+    int true_bits = 0;
+    int code_pos = 0;
+    int symbol_index = 0;
+
+    while (input.get(c)) {
+        
+        std::bitset<8> byte((unsigned long) c);
+        for (int i = 7; i >= 0; i--){
+            
+            true_bits = (true_bits & byte[i]) + byte[i];
+
+            if (true_bits == 2) {
+                output.put(decode_vector[symbol_index - 1]);
+                symbol_index = 0;
+                code_pos = 0;
+                continue;
+            }
+            symbol_index += fibs[code_pos] * byte[i];
+            code_pos++;
+        }
+    }   
+}
