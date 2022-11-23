@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <cstring>
+#include <chrono>
 #include "archiver.h"
 
 int get_file_size(std::ifstream& file){
@@ -48,14 +49,18 @@ int main(int argc, char* argv[]) {
         std::ofstream output(argv[3], std::ios::binary);
 
         if (input.is_open() && output.is_open()){
-
+            
+            auto time_one = std::chrono::steady_clock::now();
             archiver.compress(input, output);
+            auto time_two = std::chrono::steady_clock::now();
+
+            double time = std::chrono::duration_cast<std::chrono::microseconds>(time_two - time_one).count() / 1e6;
 
             int input_size = get_file_size(input);
             int output_size = get_file_size(output);
             double ratio = (double)input_size / (double)output_size;
 
-            std::cout << "Compression done!" << std::endl;
+            std::cout << "Compression done in " << time << " sec" << std::endl;
             printf("Compression ratio: %d bytes / %d bytes = %lf\n", input_size, output_size, ratio);
 
             input.close();
@@ -72,8 +77,15 @@ int main(int argc, char* argv[]) {
         std::ofstream output(argv[3]);
 
         if (input.is_open() && output.is_open()){
+
+            auto time_one = std::chrono::steady_clock::now();
             archiver.decompress(input, output);
-            std::cout << "Decompression done" << std::endl;
+            auto time_two = std::chrono::steady_clock::now();
+    
+
+            double time = std::chrono::duration_cast<std::chrono::microseconds>(time_two - time_one).count() / 1e6;
+
+            std::cout << "Decompression done in " << time << " sec" << std::endl;
 
             input.close();
             output.close();
