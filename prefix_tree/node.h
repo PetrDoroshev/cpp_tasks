@@ -3,7 +3,7 @@
 
 struct Node{
 
-    std::unordered_map<char, std::unique_ptr<Node>> children;
+    std::unique_ptr<Node> children[89];
     bool is_terminal;
     int value;
 

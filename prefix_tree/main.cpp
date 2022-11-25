@@ -50,6 +50,7 @@ void umap(const std::string &text, std::string word)
 int main()
 {   
     using namespace std;
+    
     string text;
     ifstream fin("engwiki_ascii.txt", ios::binary);
     if (!fin.is_open()) {
@@ -59,9 +60,9 @@ int main()
     text.append((istreambuf_iterator<char>(fin)), istreambuf_iterator<char>());
     fin.close();
 
-    std::string word = "wiki"; // слово которое ищем
-
-    size_t N = 2;
+    string word = "wiki";
+    
+    size_t N = 5;
     vector<double> times(N);
 
 

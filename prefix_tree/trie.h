@@ -27,10 +27,10 @@ void Trie::insert(const std::string& word) {
 
     for (auto &c: word) {
 
-        if (node_ptr->children.count(c) == 0)
-            node_ptr->children[c] = std::make_unique<Node>();
+        if (node_ptr->children[c - 39] == 0)
+            node_ptr->children[c - 39] = std::make_unique<Node>();
         
-        node_ptr = node_ptr->children[c].get(); 
+        node_ptr = node_ptr->children[c - 39].get(); 
     }
     node_ptr->is_terminal = true;
     node_ptr->value += 1;
@@ -45,10 +45,10 @@ int Trie::find(const std::string& word) const {
     Node* node_ptr = root.get();
     for (auto &c: word){
         
-        if (node_ptr->children.count(c) == 0)
+        if (node_ptr->children[c - 39] == 0)
             return 0;
 
-        node_ptr = node_ptr->children[c].get();
+        node_ptr = node_ptr->children[c - 39].get();
     }
     return node_ptr->value;
 }
