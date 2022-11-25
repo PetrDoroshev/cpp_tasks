@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <bitset>
 
-#define ZERO_CODE 48
+#define ASCII_ZERO 48
 
 struct nearest
 {

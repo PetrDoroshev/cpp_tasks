@@ -103,7 +103,7 @@ void Archiver::compress(std::ifstream& input, std::ofstream& output) {
     char c;
     while (input.get(c)){
         for (auto &b: encode_map[c]){
-            bit = b - ZERO_CODE;
+            bit = b - ASCII_ZERO;
             buffer = buffer << 1 | bit;
             bit_count++;
 
@@ -134,12 +134,13 @@ void Archiver::decompress(std::ifstream& input, std::ofstream& output){
         decode_vector.push_back(c);
         input.get(c);
     }
+    
     int true_bits = 0;
     int code_pos = 0;
     int symbol_index = 0;
 
     while (input.get(c)) {
-        
+
         std::bitset<8> byte((unsigned long) c);
         for (int i = 7; i >= 0; i--){
             
