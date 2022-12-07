@@ -75,9 +75,12 @@ public:
             }
         }
 
-        if (!is_polindrome){
+        if (!is_polindrome) {
             m_pStr->Release();
             m_pStr = pstrTmp;
+        }
+        else {
+            delete pstrTmp;
         }
     }
 };
