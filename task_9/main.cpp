@@ -37,12 +37,12 @@ int main() {
 
     std::cout << "N = " << N << ", " << "dt = " <<  dt << std::endl;
     std::cout << k << std::endl;
+    std::cout << std::endl;
 
-
-
+    std::cout << "Opt: " << std::endl;
     start = std::chrono::steady_clock::now();
     for (int i = 0; i < M; i++){
-        BinaryHeap bh(v, N);
+        BinaryHeapOpt bh(v, N);
         k = bh[0];
     }
     stop = std::chrono::steady_clock::now();
