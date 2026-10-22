@@ -1,4 +1,3 @@
-find_substr/engwiki_ascii.txt
-prefix_tree/engwiki_ascii.txt
-p_test/engwiki_ascii.txt
-archive/engwiki_ascii.txt
+string_search_algorithms/engwiki_ascii.txt
+trie_vs_hash_map/engwiki_ascii.txt
+fibonacci_archiver/engwiki_ascii.txt
